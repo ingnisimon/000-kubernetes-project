@@ -19,7 +19,8 @@ resource "aws_iam_role" "github_actions_ecr_role" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:ingnisimon/000-kubernetes-project:*"
+            # Wildcards absorb the @65754627 owner ID and the repository ID
+            "token.actions.githubusercontent.com:sub" = "repo:ingnisimon*/000-kubernetes-project*"
           }
         }
       }
