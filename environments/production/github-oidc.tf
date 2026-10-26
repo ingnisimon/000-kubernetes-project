@@ -1,11 +1,5 @@
-data "tls_certificate" "github" {
+data "aws_iam_openid_connect_provider" "github" {
   url = "https://token.actions.githubusercontent.com"
-}
-
-resource "aws_iam_openid_connect_provider" "github" {
-  url             = "https://token.actions.githubusercontent.com"
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificate.github.certificates[0].sha1_fingerprint]
 }
 
 resource "aws_iam_role" "github_actions_ecr_role" {
@@ -17,7 +11,7 @@ resource "aws_iam_role" "github_actions_ecr_role" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = aws_iam_openid_connect_provider.github.arn
+          Federated = data.aws_iam_openid_connect_provider.github.arn
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
@@ -25,7 +19,6 @@ resource "aws_iam_role" "github_actions_ecr_role" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            # Replace 'your-repo-name' with your actual repository name
             "token.actions.githubusercontent.com:sub" = "repo:ingnisimon/000-kubernetes-project:*"
           }
         }
