@@ -39,9 +39,9 @@ spec:
           values: ["amd64"]
         - key: node.kubernetes.io/instance-type
           operator: In
-          values: ["t3.small", "t3.medium"] 
+          values: ["t3.micro"] 
   limits:
-    cpu: "100"
+    cpu: "1000"
     memory: 100Gi
   disruption:
     consolidationPolicy: WhenEmptyOrUnderutilized
