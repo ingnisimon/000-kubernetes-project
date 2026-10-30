@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: web-container
-        image: 384518871764.dkr.ecr.us-east-1.amazonaws.com/eks-enterprise-app:03ac31b691cfd563718af923c6e6b796cfb6fa43
+        image: 384518871764.dkr.ecr.us-east-1.amazonaws.com/eks-enterprise-app:fd5f1249974980870c4123edd8fc4299ed9b0111
         ports:
         - containerPort: 80
         resources:
